@@ -1,0 +1,70 @@
+/**
+ * 默认分类数据
+ * 在数据库尚未初始化时作为 fallback 使用
+ */
+
+export interface CategoryItem {
+  name: string
+  icon: string
+  children: string[]
+}
+
+/** 默认的完整两级分类（与数据库默认数据保持一致） */
+export const DEFAULT_CATEGORIES: CategoryItem[] = [
+  {
+    name: '餐饮美食',
+    icon: '🍽️',
+    children: ['早餐', '午餐', '晚餐', '零食饮料', '外卖', '聚餐聚会', '水果', '买菜食材'],
+  },
+  {
+    name: '交通出行',
+    icon: '🚗',
+    children: ['公交地铁', '打车', '加油充电', '停车费', '火车高铁', '飞机票', '共享单车', '汽车保养维修'],
+  },
+  {
+    name: '购物消费',
+    icon: '🛒',
+    children: ['衣服鞋帽', '日用百货', '数码电子', '化妆品护肤', '家居用品', '宠物用品', '网购其他'],
+  },
+  {
+    name: '居住生活',
+    icon: '🏠',
+    children: ['房租房贷', '水电燃气', '物业费', '网费话费', '维修', '家居装修'],
+  },
+  {
+    name: '娱乐休闲',
+    icon: '🎮',
+    children: ['电影演出', '游戏', '旅游度假', '运动健身', 'KTV酒吧', '书籍阅读', '视频会员', '咖啡茶馆'],
+  },
+  {
+    name: '医疗健康',
+    icon: '💊',
+    children: ['看病挂号', '药品', '体检', '牙科眼科', '保健品', '理发造型'],
+  },
+  {
+    name: '教育学习',
+    icon: '📚',
+    children: ['培训课程', '书籍资料', '考试报名', '文具', '在线会员'],
+  },
+  {
+    name: '人情往来',
+    icon: '🎁',
+    children: ['红包礼金', '请客送礼', '孝敬父母', '慈善捐款', '礼物赠送'],
+  },
+  {
+    name: '金融理财',
+    icon: '💰',
+    children: ['保险', '投资亏损', '手续费', '贷款利息'],
+  },
+  {
+    name: '其他支出',
+    icon: '📦',
+    children: ['快递邮寄', '其他杂项'],
+  },
+]
+
+/** 根据一级分类名称找到对应的图标 */
+export function getCategoryIcon(category1: string): string {
+  const cat = DEFAULT_CATEGORIES.find((c) => c.name === category1)
+  return cat?.icon || '📦'
+}
