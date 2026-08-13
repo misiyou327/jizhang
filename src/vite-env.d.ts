@@ -4,7 +4,7 @@
 
 interface Expense {
   id?: number
-  amount: number
+  amount: number      // 金额，单位「分」（整数），如 3550 = 35.50 元
   category1: string
   category2: string
   date: string

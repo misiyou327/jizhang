@@ -1,10 +1,28 @@
 /**
  * 格式化工具函数
- * 所有金额计算使用分为单位避免浮点数精度问题
+ * 核心规则：金额内部统一用「分」（整数）存储和计算，避免浮点数精度问题
+ * 例如：35.50 元 → 内部存储为 3550（分）
  */
 
-/** 格式化金额为显示字符串（如 ¥35.50） */
-export function formatAmount(yuan: number): string {
+/**
+ * 元 → 分（用户输入的金额转为内部存储格式）
+ * 例如：yuanToCents(35.50) → 3550
+ */
+export function yuanToCents(yuan: number): number {
+  return Math.round(yuan * 100)
+}
+
+/**
+ * 分 → 元（内部存储转为显示用的元）
+ * 例如：centsToYuan(3550) → 35.5
+ */
+export function centsToYuan(cents: number): number {
+  return cents / 100
+}
+
+/** 格式化金额为显示字符串（如 ¥35.50），参数为「分」 */
+export function formatAmount(cents: number): string {
+  const yuan = cents / 100
   return `¥${yuan.toFixed(2)}`
 }
 

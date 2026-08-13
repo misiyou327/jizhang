@@ -45,6 +45,20 @@ function App() {
     }
   }
 
+  // 数据库未就绪时显示加载画面
+  if (!dbReady) {
+    return (
+      <div className="app">
+        <main className="page-content" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="empty-state">
+            <div className="empty-icon">⏳</div>
+            <div className="empty-text">正在初始化数据库...</div>
+          </div>
+        </main>
+      </div>
+    )
+  }
+
   return (
     <div className="app">
       {/* 页面内容区域 */}

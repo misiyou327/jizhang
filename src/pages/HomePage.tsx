@@ -55,8 +55,7 @@ function HomePage({ onNavigate }: HomePageProps) {
       <div className="home-total">
         <div className="total-label">{formatMonth(getCurrentMonth())}支出</div>
         <div>
-          <span className="total-amount">{monthTotal.toFixed(2)}</span>
-          <span className="total-unit"> 元</span>
+          <span className="total-amount">{formatAmount(monthTotal)}</span>
         </div>
         {todayTotal > 0 && (
           <div style={{ marginTop: 8, fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)' }}>

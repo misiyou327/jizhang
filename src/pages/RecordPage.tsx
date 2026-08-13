@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getToday } from '../utils/format'
+import { getToday, yuanToCents } from '../utils/format'
 import { DEFAULT_CATEGORIES } from '../utils/categories'
 import { addExpense } from '../store/database'
 
@@ -57,7 +57,7 @@ function RecordPage({ onNavigate }: RecordPageProps) {
     setSaving(true)
     try {
       const result = await addExpense({
-        amount: amountNum,
+        amount: yuanToCents(amountNum),
         category1: selectedCategory1,
         category2: selectedCategory2,
         date,

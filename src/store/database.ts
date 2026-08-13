@@ -4,11 +4,11 @@
  */
 
 const DB_NAME = 'misiyou-jizhang'
-const DB_VERSION = 1
+const DB_VERSION = 2
 
 interface ExpenseRecord {
   id?: number
-  amount: number
+  amount: number       // 金额，单位「分」（整数），如 3550 = 35.50 元
   category1: string
   category2: string
   date: string
@@ -31,6 +31,20 @@ function openDB(): Promise<IDBDatabase> {
 
     request.onupgradeneeded = (event) => {
       const db = (event.target as IDBOpenDBRequest).result
+      const oldVersion = event.oldVersion
+
+      // 如果存在旧版本的表，先删除再重建（数据迁移期间可接受清空）
+      if (oldVersion < 1) {
+        // 首次创建，正常建表
+      } else {
+        // 升级：删除旧表重建（开发阶段数据量少，清空重建比迁移简单可靠）
+        if (db.objectStoreNames.contains('expenses')) {
+          db.deleteObjectStore('expenses')
+        }
+        if (db.objectStoreNames.contains('categories')) {
+          db.deleteObjectStore('categories')
+        }
+      }
 
       // 创建支出记录表
       if (!db.objectStoreNames.contains('expenses')) {
@@ -40,7 +54,6 @@ function openDB(): Promise<IDBDatabase> {
         })
         expenseStore.createIndex('date', 'date', { unique: false })
         expenseStore.createIndex('category1', 'category1', { unique: false })
-        expenseStore.createIndex('month', 'month', { unique: false })
       }
 
       // 创建分类表

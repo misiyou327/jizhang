@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { formatAmount, getCurrentMonth, formatMonth, getWeekday } from '../utils/format'
+import { formatAmount, getCurrentMonth, formatMonth, getWeekday, centsToYuan, yuanToCents } from '../utils/format'
 import { getCategoryIcon } from '../utils/categories'
 import { getExpenses, deleteExpense as dbDeleteExpense, updateExpense as dbUpdateExpense } from '../store/database'
 
@@ -69,10 +69,10 @@ function HistoryPage() {
     }
   }
 
-  // 开始编辑
+  // 开始编辑（金额从分转为元显示）
   const startEdit = (expense: Expense) => {
     setEditId(expense.id ?? null)
-    setEditAmount(String(expense.amount))
+    setEditAmount(String(centsToYuan(expense.amount)))
     setEditNote(expense.note || '')
     setEditDate(expense.date)
   }
@@ -93,7 +93,7 @@ function HistoryPage() {
 
     try {
       const result = await dbUpdateExpense(id, {
-        amount: amountNum,
+        amount: yuanToCents(amountNum),
         category1: expenses.find((e) => e.id === id)!.category1,
         category2: expenses.find((e) => e.id === id)!.category2,
         date: editDate,
@@ -104,7 +104,7 @@ function HistoryPage() {
         setExpenses((prev) =>
           prev.map((e) =>
             e.id === id
-              ? { ...e, amount: amountNum, date: editDate, note: editNote.trim() }
+              ? { ...e, amount: yuanToCents(amountNum), date: editDate, note: editNote.trim() }
               : e
           )
         )
