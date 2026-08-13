@@ -3,10 +3,11 @@ import HomePage from './pages/HomePage'
 import RecordPage from './pages/RecordPage'
 import HistoryPage from './pages/HistoryPage'
 import StatsPage from './pages/StatsPage'
+import GamePage from './pages/GamePage'
 import { initDefaultCategories } from './store/database'
 
 // 页面类型定义
-type Page = 'home' | 'record' | 'history' | 'stats'
+type Page = 'home' | 'record' | 'history' | 'stats' | 'game'
 
 /**
  * 应用根组件
@@ -27,6 +28,7 @@ function App() {
     { key: 'record', label: '记账', icon: '✏️' },
     { key: 'history', label: '账单', icon: '📋' },
     { key: 'stats', label: '统计', icon: '📊' },
+    { key: 'game', label: '游戏', icon: '🎮' },
   ]
 
   // 根据当前页面渲染对应组件
@@ -40,6 +42,8 @@ function App() {
         return <HistoryPage />
       case 'stats':
         return <StatsPage />
+      case 'game':
+        return <GamePage />
       default:
         return <HomePage onNavigate={setCurrentPage} />
     }

@@ -844,3 +844,88 @@ body {
   font-size: var(--font-size-xs);
   color: var(--color-text-hint);
 }
+
+/* ========================================
+   贪吃蛇游戏页面
+   ======================================== */
+
+.snake-board {
+  position: relative;
+  margin: 16px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.snake-board canvas {
+  display: block;
+}
+
+.snake-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.88);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  backdrop-filter: blur(4px);
+}
+
+.snake-overlay-title {
+  font-size: var(--font-size-xxl);
+  font-weight: 700;
+}
+
+.snake-overlay-text {
+  text-align: center;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+}
+
+.snake-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.snake-controls-row {
+  display: flex;
+  gap: 8px;
+}
+
+.snake-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.snake-btn:active {
+  background: var(--color-primary-light);
+  transform: scale(0.95);
+}
+
+.snake-btn-center {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+}
+
+.snake-btn-center:active {
+  background: var(--color-primary);
+  opacity: 0.85;
+}
